@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+
+#menu{
+	display: table;
+}
+
+.menu_item{
+	display: table-cell;
+}
+
+body {
+  background-color: lightblue;
+}
