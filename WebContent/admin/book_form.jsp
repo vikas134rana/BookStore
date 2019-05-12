@@ -9,8 +9,12 @@
 <meta charset="ISO-8859-1">
 <title>Book Management</title>
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
+
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+
 </head>
 <body>
 
@@ -18,17 +22,18 @@
 
 	<div align="center">
 
-		<c:if test="${user==null}">
+		<c:if test="${book==null}">
 			<div class='page_heading'>Create Book</div>
-			<form id="book_form" method="post" action="create_book">
+			<form id="book_form" method="post" action="create_book"
+				enctype="multipart/form-data">
 		</c:if>
 
-		<c:if test="${user!=null}">
+		<c:if test="${book!=null}">
 			<div class='page_heading'>Edit Book</div>
-			<form id="book_form" method="post" action="update_book">
+			<form id="book_form" method="post" action="update_book"
+				enctype="multipart/form-data">
 		</c:if>
 
-		<input type="hidden" id="bookId" name="bookId" value="${book.bookId}">
 		<table>
 			<tr>
 				<td>Title:</td>
@@ -41,18 +46,23 @@
 			</tr>
 			<tr>
 				<td>Description:</td>
-				<td><input id="description" name="description"
-					value="${book.description}"></td>
+				<td><textarea id="description" rows="6" cols="23"
+						name="description">${book.description}</textarea>
 			</tr>
 			<tr>
 				<td>Category:</td>
-				<td>
-					<select name="categoryId" id="categoryId">
+				<td><select name="categoryId" id="categoryId">
 						<c:forEach var="cat" items="${categoryList}">
-							<option value="cat.categoryId" >${cat.name}</option>
+
+							<c:if test="${cat.categoryId eq book.category.categoryId}">
+								<option value="${cat.categoryId}" selected="selected">${cat.name}</option>
+							</c:if>
+							<c:if test="${cat.categoryId ne book.category.categoryId}">
+								<option value="${cat.categoryId}">${cat.name}</option>
+							</c:if>
+
 						</c:forEach>
-					</select>
-				</td>
+				</select></td>
 			</tr>
 			<tr>
 				<td>ISBN:</td>
@@ -60,15 +70,16 @@
 			</tr>
 			<tr>
 				<td>Image:</td>
-				<td><input type="file" id="image" name="image"
-					value="${book.image}"></td>
+				<td><img alt="" id="thumbnail" name="thumbnail"
+					style="width: 20%" src="data:image/png;base64,${book.imageBase64}"><br>
+					<input type="file" id="image" name="image"></td>
 			</tr>
 			<tr>
 				<td>Price:</td>
 				<td><input id="price" name="price" value="${book.price}"></td>
 			</tr>
 			<tr>
-				<td>PublishDate:</td>
+				<td>Publish Date:</td>
 				<td><input id="publishDate" name="publishDate"
 					value="${book.publishDate}"></td>
 			</tr>
@@ -88,12 +99,22 @@
 </body>
 <script>
 	$().ready(function() {
+
+		$("#publishDate").datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+
+		$("#image").change(function() {
+			readURL(this);
+		});
+
 		$("#user_form").validate({
 
 			rules : {
 				title : "required",
 				author : "required",
 				description : "required",
+				categoryId : "required",
 				isbn : "required",
 				image : "required",
 				price : "required",
@@ -102,5 +123,18 @@
 
 		});
 	});
+
+	function readURL(input) {
+
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#thumbnail').attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>
 </html>

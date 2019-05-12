@@ -1,34 +1,34 @@
 package com.bookstore.controller.admin.book;
 
-import java.io.IOException;
+import com.bookstore.controller.BaseServlet;
+import com.bookstore.service.BookServices;
 
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.controller.BaseServlet;
-import com.bookstore.service.BookServices;
-
 /**
- * Servlet implementation class CreateBookServlet
+ * Servlet implementation class UpdateBookServlet
  */
-@WebServlet("/admin/create_book")
+@WebServlet("/admin/update_book")
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 10, //10 KB
 		maxFileSize  = 1024 *100, 	   //100 KB
 		maxRequestSize = 1024*1024     //1 MB
 )
-public class CreateBookServlet extends BaseServlet {
+public class UpdateBookServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
-    public CreateBookServlet() {
+    public UpdateBookServlet() {
         super();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookServices bookServices = new BookServices(entityManager, request, response);
-		bookServices.createBook();
+		bookServices.updateBook();
 	}
+
 }

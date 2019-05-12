@@ -11,19 +11,19 @@ import com.bookstore.controller.BaseServlet;
 import com.bookstore.service.BookServices;
 
 /**
- * Servlet implementation class ListBookServlet
+ * Servlet implementation class NewBookServlet
  */
-@WebServlet("/admin/list_book")
-public class ListBookServlet extends BaseServlet {
+@WebServlet("/admin/new_book")
+public class NewBookServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public ListBookServlet() {
-        super();
-    }
+
+	public NewBookServlet() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookServices bookServices = new BookServices(entityManager, request, response);
-		bookServices.listBook();
+		bookServices.newBook();
 	}
 
 }

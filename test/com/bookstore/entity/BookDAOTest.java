@@ -5,11 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -86,7 +84,7 @@ public class BookDAOTest extends BaseDAOTest {
 		String publishDateString = "16/04/2018";
 
 		Category cat = new Category("Programming");
-		cat.setCategoryId(1);
+		cat.setCategoryId(10);
 
 		book.setBookId(1);
 		book.setCategory(cat);

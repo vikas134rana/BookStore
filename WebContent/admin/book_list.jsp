@@ -20,7 +20,7 @@
 		<div class='page_heading'>Book Management</div>
 
 		<h3>
-			<a href="book_form.jsp">Create New Book</a>
+			<a href="new_book">Create New Book</a>
 		</h3>
 
 		<c:if test="${requestScope.message!=null}">
@@ -32,11 +32,12 @@
 			<tr>
 				<th>Index</th>
 				<th>ID</th>
+				<th>Image</th>
 				<th>Title</th>
 				<th>Author</th>
-				<th>Description</th>
+				<th>Category</th>
+				<th>Publish Date</th>
 				<th>ISBN</th>
-				<th>Image</th>
 				<th>Price</th>
 				<th>Actions</th>
 			</tr>
@@ -47,14 +48,17 @@
 				<tr>
 					<td>${status.index+1}</td>
 					<td>${book.bookId}</td>
+					<td><img alt="" src="data:image/png;base64,${book.imageBase64}" width="100px" height="130px"></td>
 					<td>${book.title}</td>
 					<td>${book.author}</td>
-					<td>${book.description}</td>
+					<td>${book.category.name}</td>
+					<td>${book.publishDate}</td>
 					<td>${book.isbn}</td>
-					<td>${book.image}</td>
 					<td>${book.price}</td>
-					<td><a href="edit_book?id=${book.bookId}">Edit</a>&nbsp;&nbsp;<a
-						href="#" onclick="confirmDelete(${book.bookId})">Delete</a></td>
+					<td>
+						<a href="edit_book?id=${book.bookId}">Edit</a>&nbsp;&nbsp;
+						<a href="#" onclick="confirmDelete(${book.bookId})">Delete</a>
+					</td>
 				</tr>
 			</c:forEach>
 
