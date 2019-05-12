@@ -8,6 +8,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User Management</title>
+<link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 
@@ -16,13 +19,13 @@
 	<div align="center">
 
 		<c:if test="${user==null}">
-			<h3>Create User</h3>
-			<form method="post" action="create_user" onsubmit="return validateFormField(true);">
+			<div class='page_heading'>Create User</div>
+			<form id="user_form" method="post" action="create_user">
 		</c:if>
 
 		<c:if test="${user!=null}">
-			<h3>Edit User</h3>
-			<form method="post" action="update_user" onsubmit="return validateFormField(false);">
+			<div class='page_heading'>Edit User</div>
+			<form id="user_form" method="post" action="update_user">
 		</c:if>
 
 			<input type="hidden" id="userId" name="userId"
@@ -58,27 +61,30 @@
 
 </body>
 <script>
-	function validateFormField(requiredPassword) {
-
-		var username = document.getElementById("username");
-		if (username.value.length == 0) {
-			alert('Username is required');
-			return false;
-		}
-
-		var email = document.getElementById("email");
-		if (email.value.length == 0) {
-			alert('Email is required');
-			return false;
-		}
-
-		var password = document.getElementById("password");
-		if (requiredPassword && password.value.length == 0) {
-			alert('Password is required');
-			return false;
-		}
-
-		return true;
-	}
+	
+	$().ready(function(){
+		$("#user_form").validate({
+			
+			rules:{
+				username: "required",
+				email: {
+					required:true,
+					email:true
+				},
+				password: "required"
+			},
+			
+			messages:{
+				username: "Please enter the Username",
+				email: {
+					required: "Please enter the Email",
+					email: "Please enter the valid Email"
+				},
+				password: "Please enter the Password"
+			}
+			
+		});
+	});
+	
 </script>
 </html>

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Category Management</title>
+<title>Book Management</title>
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -17,10 +17,10 @@
 
 	<div align="center">
 
-		<div class='page_heading'>Category Management</div>
+		<div class='page_heading'>Book Management</div>
 
 		<h3>
-			<a href="category_form.jsp">Create New Category</a>
+			<a href="book_form.jsp">Create New Book</a>
 		</h3>
 
 		<c:if test="${requestScope.message!=null}">
@@ -28,23 +28,33 @@
 				<i>${requestScope.message}</i>
 			</h4>
 		</c:if>
-		<table class= "list">
+		<table class="list">
 			<tr>
 				<th>Index</th>
 				<th>ID</th>
-				<th>Category</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Description</th>
+				<th>ISBN</th>
+				<th>Image</th>
+				<th>Price</th>
 				<th>Actions</th>
 			</tr>
 
 
 
-			<c:forEach var="cat" items="${listCategory}" varStatus="status">
+			<c:forEach var="book" items="${bookList}" varStatus="status">
 				<tr>
 					<td>${status.index+1}</td>
-					<td>${cat.categoryId}</td>
-					<td>${cat.name}</td>
-					<td><a href="edit_category?id=${cat.categoryId}">Edit</a>&nbsp;&nbsp;<a
-						href="#" onclick="confirmDelete(${cat.categoryId})">Delete</a></td>
+					<td>${book.bookId}</td>
+					<td>${book.title}</td>
+					<td>${book.author}</td>
+					<td>${book.description}</td>
+					<td>${book.isbn}</td>
+					<td>${book.image}</td>
+					<td>${book.price}</td>
+					<td><a href="edit_book?id=${book.bookId}">Edit</a>&nbsp;&nbsp;<a
+						href="#" onclick="confirmDelete(${book.bookId})">Delete</a></td>
 				</tr>
 			</c:forEach>
 
@@ -58,8 +68,8 @@
 
 <script type="text/javascript">
 	function confirmDelete(id) {
-		if (confirm("Are you sure you want to delete Category with categoryId " + id)) {
-			window.location = "delete_category?id="+id;
+		if (confirm("Are you sure you want to delete Book with bookId " + id)) {
+			window.location = "delete_book?id="+id;
 		}
 	}
 </script>

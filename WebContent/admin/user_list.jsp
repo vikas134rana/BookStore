@@ -17,7 +17,7 @@
 
 	<div align="center">
 
-		<h2>User Management</h2>
+		<div class='page_heading'>User Management</div>
 
 		<h3>
 			<a href="user_form.jsp">Create New User</a>
@@ -28,13 +28,13 @@
 				<i>${requestScope.message}</i>
 			</h4>
 		</c:if>
-		<table border="1" cellPadding="8">
+		<table class="list">
 			<tr>
-				<td>Index</td>
-				<td>ID</td>
-				<td>Email</td>
-				<td>Full Name</td>
-				<td>Actions</td>
+				<th>Index</th>
+				<th>ID</th>
+				<th>Email</th>
+				<th>Full Name</th>
+				<th>Actions</th>
 			</tr>
 
 

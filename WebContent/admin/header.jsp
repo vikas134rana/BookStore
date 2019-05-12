@@ -1,7 +1,6 @@
 <div align="center">
 
-	<img src="/BookStoreWebsite/images/BookStoreLogo.png" width="350"
-		height="96" />
+	<img src="../images/BookStoreLogo.png" width="350" height="96" />
 
 	<p>
 		Welcome, ${user_email} | <a href="logout">Logout</a>
@@ -9,34 +8,28 @@
 
 	<div id="menu">
 		<div class="menu_item">
-			<a href="list_user"> <img
-				src="https://img.icons8.com/ios/100/000000/gender-neutral-user-filled.png">Users
+			<a href="list_user"> <img src="../images/user.png"><br>Users
 			</a>
 		</div>
 
 		<div class="menu_item">
-			<a href="list_category"><img
-				src="https://img.icons8.com/material-sharp/96/000000/sorting-answers.png">Categories</a>
+			<a href="list_category"><img src="../images/category.png"><br>Categories</a>
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img
-				src="https://img.icons8.com/ios/100/000000/book-filled.png">Books</a>
+			<a href="list_book"><img src="../images/book.png"><br>Books</a>
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img
-				src="https://img.icons8.com/ios-glyphs/90/000000/group.png">Customers</a>
+			<a href="#"><img src="../images/customer.png"><br>Customers</a>
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img
-				src="https://img.icons8.com/ios/100/000000/very-popular-topic.png">Reviews</a>
+			<a href="#"><img src="../images/review.png"><br>Reviews</a>
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img
-				src="https://img.icons8.com/ios/100/000000/add-shopping-cart-filled.png">Orders</a>
+			<a href="#"><img src="../images/order.png"><br>Orders</a>
 		</div>
 
 	</div>

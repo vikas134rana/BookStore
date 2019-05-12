@@ -16,10 +16,15 @@
 		<h2>Administrative Dashboard</h2>
 
 		<hr width="35%"></hr>
-		<h3>Quick Actions:</h3>
 
-		<a href="#">New Book</a>&nbsp;&nbsp; <a href="new_user">New User</a>&nbsp;&nbsp;
-		<a href="#">New Category</a>&nbsp;&nbsp; <a href="#">New Customer</a>
+		<div>
+			<h3>Quick Actions:</h3>
+
+			<a href="#" class="quickaction_item">New Book</a><a href="new_user"
+				class="quickaction_item">New User</a> <a href="#"
+				class="quickaction_item">New Category</a><a href="#"
+				class="quickaction_item">New Customer</a>
+		</div>
 		<hr width="35%"></hr>
 
 

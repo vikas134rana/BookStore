@@ -8,6 +8,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Category Management</title>
+<link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 
@@ -16,13 +19,13 @@
 	<div align="center">
 
 		<c:if test="${category==null}">
-			<h3>Create Category</h3>
-			<form method="post" action="create_category" onsubmit="return validateFormField();">
+			<div class='page_heading'>Create Category</div>
+			<form id="category_form" method="post" action="create_category" onsubmit="return validateFormField();">
 		</c:if>
 
 		<c:if test="${category!=null}">
-			<h3>Edit Category</h3>
-			<form method="post" action="update_category" onsubmit="return validateFormField();">
+			<div class='page_heading'>Edit Category</div>
+			<form id="category_form" method="post" action="update_category" onsubmit="return validateFormField();">
 		</c:if>
 
 			<input type="hidden" id="categoryId" name="categoryId"
@@ -34,7 +37,7 @@
 						value="${category.name}"></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="button"
+					<td colspan="2" align="center"><input id="submit" type="button"
 						value="Cancel" onclick="javascript:history.go(-1);"> <input
 						type="submit" value="Submit"></td>
 				</tr>
@@ -48,7 +51,23 @@
 
 </body>
 <script>
-	function validateFormField() {
+
+	$().ready(function(){
+		$("#category_form").validate({
+			
+			rules:{
+				categoryName: "required"
+			},
+			
+			messages:{
+				categoryName: "Please enter Category Name"
+			}
+				
+			
+		});
+	});
+
+	/*- function validateFormField() {
 
 		var username = document.getElementById("username");
 		if (username.value.length == 0) {
@@ -69,6 +88,6 @@
 		}
 
 		return true;
-	}
+	} */
 </script>
 </html>

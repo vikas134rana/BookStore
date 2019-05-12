@@ -1,5 +1,6 @@
 package com.bookstore.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,11 +15,13 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 
 	@Override
 	public Book create(Book book) {
+		book.setLastUpdatedOn(new Date());
 		return super.create(book);
 	}
 
 	@Override
 	public Book update(Book book) {
+		book.setLastUpdatedOn(new Date());
 		return super.update(book);
 	}
 
@@ -42,8 +45,13 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 		return super.countWithNamedQuery("Book.countAll");
 	}
 
-	public List<Book> findByTitle(String title) {
-		return super.findWithNamedQuery("Book.findByTitle", "title", title);
+	public Book findByTitle(String title) {
+		List<Book> bookList = super.findWithNamedQuery("Book.findByTitle", "title", title);
+
+		if (bookList.size() == 1)
+			return bookList.get(0);
+
+		return null;
 	}
 
 }

@@ -1,13 +1,97 @@
 @charset "ISO-8859-1";
 
-#menu{
+#menu {
 	display: table;
 }
 
-.menu_item{
+.menu_item {
 	display: table-cell;
+	padding-right: 25px;
 }
 
-body {
-  background-color: lightblue;
+.menu_item img {
+	height: 64px;
+	width: 64px;
+	border: gray 1px solid;
+	padding: 4px;
+	border-radius: 5px;
 }
+
+.page_heading {
+	padding: 15px; font-family : arial, sans-serif;
+	font-size: 25px;
+	color: #0005cc;
+	font-family: arial, sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+table.list {
+	font-size: 16px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table.list  td, table.list  th {
+	border: 1px solid #ddd;
+	text-align: left;
+	padding: 12px;
+}
+
+table.list tr:nth-child(even) {
+	background-color: #f2f2f2
+}
+
+table.list  th {
+	padding-top: 11px;
+	padding-bottom: 11px;
+	background-color: #3EADA6;
+	color: white;
+}
+
+.category_menu_item {
+	font-size: 22px;
+	font-style: bold;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.quickaction_item {
+	font-size: 16px;
+	font-style: bold;
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+form table td{
+	padding: 10px;
+}
+
+form input {
+	border: #3EADA6 1px solid;
+	height: 20px;
+	border-radius: 5px;
+	padding-left: 8px;
+}
+
+form input[type='button'], form input[type='submit'] {
+	border: gray 1px solid;
+	height: 20px;
+	border-radius: 5px;
+}
+
+.error{
+	padding-left:12px;
+	color: red;
+}
+
+/* body {
+	background-color: #e8e8e8;
+} */
