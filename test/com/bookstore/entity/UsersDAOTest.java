@@ -18,14 +18,13 @@ import org.junit.Test;
 import com.bookstore.dao.HashGenerator;
 import com.bookstore.dao.UserDAO;
 
-public class UsersDAOTest extends BaseDAOTest {
+public class UsersDAOTest {
 
 	private static UserDAO usersDAO;
 
 	@BeforeClass
 	public static void setUpClass() {
-		BaseDAOTest.setUpClass();
-		usersDAO = new UserDAO(entityManager);
+		usersDAO = new UserDAO();
 	}
 
 	@Test
@@ -128,7 +127,7 @@ public class UsersDAOTest extends BaseDAOTest {
 		boolean loginResult = usersDAO.checkLogin(email, password);
 		assertTrue(loginResult);
 	}
-	
+
 	@Test
 	public void testCheckLoginUserWrong() {
 		String email = "gajodhar@gmail.com";
@@ -144,10 +143,10 @@ public class UsersDAOTest extends BaseDAOTest {
 		System.out.println(encryptedText);
 		assertNotNull(encryptedText);
 	}
-	
+
 	@AfterClass
 	public static void tearDownClass() {
-		BaseDAOTest.tearDownClass();
+		usersDAO.close();
 	}
 
 }

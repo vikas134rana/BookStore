@@ -32,6 +32,8 @@
 			<div class='page_heading'>Edit Book</div>
 			<form id="book_form" method="post" action="update_book"
 				enctype="multipart/form-data">
+				<input type="hidden" id="bookId" name="bookId"
+					value="${book.bookId}"></td>
 		</c:if>
 
 		<table>
@@ -108,7 +110,7 @@
 			readURL(this);
 		});
 
-		$("#user_form").validate({
+		$("#book_form").validate({
 
 			rules : {
 				title : "required",
@@ -116,7 +118,10 @@
 				description : "required",
 				categoryId : "required",
 				isbn : "required",
-				image : "required",
+
+				<c:if test="${book==null}">
+					image : "required",
+				</c:if>
 				price : "required",
 				publishDate : "required"
 			}

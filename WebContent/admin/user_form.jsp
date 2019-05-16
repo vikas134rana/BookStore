@@ -28,30 +28,29 @@
 			<form id="user_form" method="post" action="update_user">
 		</c:if>
 
-			<input type="hidden" id="userId" name="userId"
-				value="${user.userId}">
-			<table>
-				<tr>
-					<td>UserName:</td>
-					<td><input type="text" id="username" name="username"
-						value="${user.fullName}"></td>
-				</tr>
-				<tr>
-					<td>Email:</td>
-					<td><input type="email" id="email" name="email"
-						value="${user.email}"></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" id="password" name="password"
-						value=""></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center"><input type="button"
-						value="Cancel" onclick="javascript:history.go(-1);"> <input
-						type="submit" value="Submit"></td>
-				</tr>
-			</table>
+		<input type="hidden" id="userId" name="userId" value="${user.userId}">
+		<table>
+			<tr>
+				<td>UserName:</td>
+				<td><input type="text" id="username" name="username"
+					value="${user.fullName}"></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="email" id="email" name="email"
+					value="${user.email}"></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" id="password" name="password"
+					value=""></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="button"
+					value="Cancel" onclick="javascript:history.go(-1);"> <input
+					type="submit" value="Submit"></td>
+			</tr>
+		</table>
 
 		</form>
 
@@ -71,7 +70,10 @@
 					required:true,
 					email:true
 				},
-				password: "required"
+				
+				<c:if test="${user==null}">
+					password: "required"
+				</c:if>
 			},
 			
 			messages:{

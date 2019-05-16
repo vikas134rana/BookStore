@@ -19,37 +19,36 @@ import org.junit.Test;
 
 import com.bookstore.dao.BookDAO;
 
-public class BookDAOTest extends BaseDAOTest {
+public class BookDAOTest {
 
 	private static BookDAO bookDAO;
 
 	@BeforeClass
 	public static void setUpClass() {
-		BaseDAOTest.setUpClass();
-		bookDAO = new BookDAO(entityManager);
+		bookDAO = new BookDAO();
 	}
 
 	@Test
 	public void createBookTest() throws ParseException, IOException {
 
 		/*-Book book = new Book();
-
+		
 		Category cat = new Category("Programming");
 		cat.setCategoryId(1);
-
+		
 		book.setCategory(cat);
 		book.setTitle("Effective Java 3rd Edition");
 		book.setAuthor("Joshua Bloch");
 		book.setDescription("The Definitive Guide to Java Platform Best Practices–Updated for Java 7, 8, and 9");
 		book.setIsbn("978-0134685991");
 		book.setPrice(30.16f);
-
+		
 		Date publishDate = new SimpleDateFormat("dd/mm/yyyy").parse("11/05/2018");
 		book.setPublishDate(publishDate);
-
+		
 		byte[] allBytes = Files.readAllBytes(Paths.get("C:\\Users\\Vikas\\Desktop\\Bookstore Content\\book\\effectivejava.jpg"));
 		book.setImage(allBytes);
-
+		
 		book = bookDAO.create(book);*/
 
 		Book book = new Book();
@@ -71,7 +70,7 @@ public class BookDAOTest extends BaseDAOTest {
 		book.setImage(allBytes);
 
 		book = bookDAO.create(book);
-		
+
 		assert (book.getBookId() > 0);
 	}
 
@@ -111,7 +110,7 @@ public class BookDAOTest extends BaseDAOTest {
 		Book book = bookDAO.get(bookId);
 		assertNotNull(book);
 	}
-	
+
 	@Test
 	public void getBookTestInvalid() {
 		int bookId = 999;
@@ -122,13 +121,13 @@ public class BookDAOTest extends BaseDAOTest {
 	@Test
 	public void listAllBookTest() {
 		List<Book> bookList = bookDAO.listAll();
-		assert(bookList.size()>0);
+		assert (bookList.size() > 0);
 	}
 
 	@Test
 	public void countBookTest() {
 		long count = bookDAO.count();
-		assert(count==2);
+		assert (count == 2);
 	}
 
 	@Test
@@ -137,17 +136,31 @@ public class BookDAOTest extends BaseDAOTest {
 		Book book = bookDAO.findByTitle(title);
 		assertEquals(book.getTitle(), title);
 	}
-	
+
 	@Test
 	public void findByTitleTestInvalid() {
 		String title = "Some Wrong title";
 		Book book = bookDAO.findByTitle(title);
 		assertNotEquals(book.getTitle(), title);
 	}
-	
+
+	@Test
+	public void findByCategoryTest() {
+		int categoryId = 1;
+		List<Book> bookList = bookDAO.findBookByCategory(categoryId);
+		assertEquals(bookList.size(), 3);
+	}
+
+	@Test
+	public void searchBookTest() {
+		String searchText = "head";
+		List<Book> bookList = bookDAO.searchBooks(searchText);
+		assertEquals(bookList.size(), 2);
+	}
+
 	@AfterClass
 	public static void tearDownClass() {
-		BaseDAOTest.tearDownClass();
+		bookDAO.close();
 	}
 
 }

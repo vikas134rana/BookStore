@@ -48,17 +48,17 @@
 				<tr>
 					<td>${status.index+1}</td>
 					<td>${book.bookId}</td>
-					<td><img alt="" src="data:image/png;base64,${book.imageBase64}" width="100px" height="130px"></td>
+					<td><img alt=""
+						src="data:image/png;base64,${book.imageBase64}" width="100px"
+						height="130px"></td>
 					<td>${book.title}</td>
 					<td>${book.author}</td>
 					<td>${book.category.name}</td>
 					<td>${book.publishDate}</td>
 					<td>${book.isbn}</td>
 					<td>${book.price}</td>
-					<td>
-						<a href="edit_book?id=${book.bookId}">Edit</a>&nbsp;&nbsp;
-						<a href="#" onclick="confirmDelete(${book.bookId})">Delete</a>
-					</td>
+					<td><a href="edit_book?id=${book.bookId}">Edit</a>&nbsp;&nbsp;
+						<a href="#" onclick="confirmDelete(${book.bookId})">Delete</a></td>
 				</tr>
 			</c:forEach>
 

@@ -14,14 +14,13 @@ import org.junit.Test;
 
 import com.bookstore.dao.CategoryDAO;
 
-public class CategoryDAOTest extends BaseDAOTest {
+public class CategoryDAOTest {
 
 	public static CategoryDAO categoryDAO;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
-		BaseDAOTest.setUpClass();
-		categoryDAO = new CategoryDAO(entityManager);
+		categoryDAO = new CategoryDAO();
 	}
 
 	@Test
@@ -104,6 +103,6 @@ public class CategoryDAOTest extends BaseDAOTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		BaseDAOTest.tearDownClass();
+		categoryDAO.close();
 	}
 }

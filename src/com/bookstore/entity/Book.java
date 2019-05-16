@@ -27,7 +27,10 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "book", catalog = "bookstore")
 @NamedQueries({ @NamedQuery(name = "Book.findAll", query = "Select b from Book b"), @NamedQuery(name = "Book.countAll", query = "Select count(*) from Book b"),
-		@NamedQuery(name = "Book.findByTitle", query = "Select b from Book b where title = :title") })
+		@NamedQuery(name = "Book.findByTitle", query = "Select b from Book b where title = :title"),
+		@NamedQuery(name = "Book.findByCategory", query = "Select b from Book b where category_id = :category_id"),
+		@NamedQuery(name = "Book.listNewBooks", query = "Select b from Book b order by publish_date desc"),
+		@NamedQuery(name = "Book.search", query = "Select b from Book b where LOWER(title) LIKE :searchText OR LOWER(author) LIKE :searchText OR LOWER(description) LIKE :searchText") })
 public class Book implements java.io.Serializable {
 
 	private Integer bookId;
@@ -87,7 +90,7 @@ public class Book implements java.io.Serializable {
 		this.bookId = bookId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id", nullable = false)
 	public Category getCategory() {
 		return this.category;

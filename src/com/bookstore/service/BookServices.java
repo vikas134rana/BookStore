@@ -2,11 +2,9 @@ package com.bookstore.service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,13 +22,13 @@ public class BookServices {
 	private BookDAO bookDAO;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	private EntityManager entityManager;
+	private CategoryDAO categoryDAO;
 
-	public BookServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
-		this.entityManager = entityManager;
+	public BookServices(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;
-		bookDAO = new BookDAO(entityManager);
+		bookDAO = new BookDAO();
+		categoryDAO = new CategoryDAO();
 	}
 
 	public void listBook() throws ServletException, IOException {
@@ -46,7 +44,6 @@ public class BookServices {
 	}
 
 	public void newBook() throws ServletException, IOException {
-		CategoryDAO categoryDAO = new CategoryDAO(entityManager);
 		List<Category> categoryList = categoryDAO.listAll();
 		request.setAttribute("categoryList", categoryList);
 		request.getRequestDispatcher("book_form.jsp").forward(request, response);
@@ -55,37 +52,9 @@ public class BookServices {
 	public void createBook() throws IOException, ServletException {
 		String message = null;
 		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String description = request.getParameter("description");
-		String isbn = request.getParameter("isbn");
-		float price = Float.parseFloat(request.getParameter("price"));
 
-		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		Category category = new CategoryDAO(entityManager).get(categoryId);
-
-		Date publishDate = null;
-		try {
-			publishDate = DateUtils.parseDate(request.getParameter("publishDate"), new String[] { "yyyy-MM-dd" });
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		Part part = request.getPart("image");
-		long size = part.getSize();
-		byte[] image = new byte[(int) size];
-		InputStream is = part.getInputStream();
-		is.read(image);
-
-		System.out.println("Title: " + title);
-		System.out.println("Author: " + author);
-		System.out.println("description: " + description);
-		System.out.println("isbn: " + isbn);
-		System.out.println("price: " + price);
-		System.out.println("categoryId: " + categoryId);
-		System.out.println("publishDate: " + publishDate);
-		System.out.println("image: " + image);
-
-		Book book = new Book(category, title, author, description, isbn, image, price, publishDate, null);
+		Book book = new Book();
+		setBook(book);
 
 		Book bookExist = bookDAO.findByTitle(title);
 
@@ -111,7 +80,6 @@ public class BookServices {
 			request.setAttribute("message", message);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 		} else {
-			CategoryDAO categoryDAO = new CategoryDAO(entityManager);
 			List<Category> categoryList = categoryDAO.listAll();
 			request.setAttribute("book", book);
 			request.setAttribute("categoryList", categoryList);
@@ -122,48 +90,19 @@ public class BookServices {
 	public void updateBook() throws IOException, ServletException {
 
 		String message = null;
+		Book book = new Book();
+
+		setBook(book);
+
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String description = request.getParameter("description");
-		String isbn = request.getParameter("isbn");
-		float price = Float.parseFloat(request.getParameter("price"));
-
-		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		Category category = new CategoryDAO(entityManager).get(categoryId);
-
-		Date publishDate = null;
-		try {
-			publishDate = DateUtils.parseDate(request.getParameter("publishDate"), new String[] { "yyyy-MM-dd" });
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		byte[] image = null;
-		Part part = request.getPart("image");
-		if (part.getSize() != 0) {
-			long size = part.getSize();
-			image = new byte[(int) size];
-			InputStream is = part.getInputStream();
-			is.read(image);
-		} else {
-			image = bookDAO.get(bookId).getImage();
-		}
-
-		System.out.println("BookId: " + bookId);
-		System.out.println("Title: " + title);
-		System.out.println("Author: " + author);
-		System.out.println("description: " + description);
-		System.out.println("isbn: " + isbn);
-		System.out.println("price: " + price);
-		System.out.println("categoryId: " + categoryId);
-		System.out.println("publishDate: " + publishDate);
-		System.out.println("image: " + image);
-		System.out.println("imageSize: " + image.length);
-
-		Book book = new Book(category, title, author, description, isbn, image, price, publishDate, null);
 		book.setBookId(bookId);
 
+		if (book.getImage() == null) { // update (when image is changed)
+			byte[] image = bookDAO.get(bookId).getImage();
+			book.setImage(image);
+		}
+
+		String title = request.getParameter("title");
 		Book bookExist = bookDAO.findByTitle(title);
 
 		if (bookExist != null && bookExist.getBookId() != bookId) {
@@ -177,6 +116,52 @@ public class BookServices {
 			listBook(message);
 		}
 
+	}
+
+	public void setBook(Book book) throws IOException, ServletException {
+
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		String description = request.getParameter("description");
+		String isbn = request.getParameter("isbn");
+		float price = Float.parseFloat(request.getParameter("price"));
+
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		Category category = categoryDAO.get(categoryId);
+
+		Date publishDate = null;
+		try {
+			publishDate = DateUtils.parseDate(request.getParameter("publishDate"), new String[] { "yyyy-MM-dd" });
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		byte[] image = null;
+		Part part = request.getPart("image");
+		if (part.getSize() != 0) { // create and update(when image is not changed)
+			long size = part.getSize();
+			image = new byte[(int) size];
+			InputStream is = part.getInputStream();
+			is.read(image);
+		}
+
+		System.out.println("Title: " + title);
+		System.out.println("Author: " + author);
+		System.out.println("description: " + description);
+		System.out.println("isbn: " + isbn);
+		System.out.println("price: " + price);
+		System.out.println("categoryId: " + categoryId);
+		System.out.println("publishDate: " + publishDate);
+		System.out.println("image: " + image);
+
+		book.setCategory(category);
+		book.setTitle(title);
+		book.setAuthor(author);
+		book.setDescription(description);
+		book.setIsbn(isbn);
+		book.setImage(image);
+		book.setPrice(price);
+		book.setPublishDate(publishDate);
 	}
 
 	public void deleteBook() throws ServletException, IOException {
@@ -194,6 +179,43 @@ public class BookServices {
 			bookDAO.delete(bookId);
 			listBook();
 		}
+	}
+
+	public void listByCategory() throws ServletException, IOException {
+		int categoryId = Integer.parseInt(request.getParameter("id"));
+		List<Book> bookList = bookDAO.findBookByCategory(categoryId);
+		Category category = categoryDAO.get(categoryId);
+
+		request.setAttribute("category", category);
+		request.setAttribute("bookList", bookList);
+		request.getRequestDispatcher("frontend/books_list_by_category.jsp").forward(request, response);
+	}
+
+	public void listNewBooks() throws ServletException, IOException {
+		List<Book> bookList = bookDAO.listNewBooks();
+		request.setAttribute("newBookList", bookList);
+		request.getRequestDispatcher("frontend/index.jsp").forward(request, response);
+	}
+
+	public void viewBook() throws ServletException, IOException {
+		int bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+
+		if (book == null) {
+			String message = "Sorry, the book with ID [" + bookId + "] is not available.";
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("frontend/message.jsp").forward(request, response);
+		} else {
+			request.setAttribute("book", book);
+			request.getRequestDispatcher("frontend/book_view.jsp").forward(request, response);
+		}
+	}
+
+	public void searchBook() throws ServletException, IOException {
+		String searchText = request.getParameter("search").toLowerCase();
+		List<Book> bookList = bookDAO.searchBooks(searchText);
+		request.setAttribute("bookList", bookList);
+		request.getRequestDispatcher("frontend/book_search.jsp").forward(request, response);
 	}
 
 }
