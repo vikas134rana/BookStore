@@ -1,6 +1,6 @@
 <div align="center">
 
-	<img src="../images/BookStoreLogo.png" width="350" height="96" />
+	<a href="${pageContext.request.contextPath}/admin/"><img src="../images/BookStoreLogo.png" width="350" height="96" /></a>
 
 	<p>
 		Welcome, ${user_email} | <a href="logout">Logout</a>

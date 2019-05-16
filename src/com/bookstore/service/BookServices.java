@@ -38,15 +38,13 @@ public class BookServices {
 	public void listBook(String message) throws ServletException, IOException {
 		List<Book> bookList = bookDAO.listAll();
 		request.setAttribute("bookList", bookList);
-		if (message != null)
-			request.setAttribute("message", message);
-		request.getRequestDispatcher("book_list.jsp").forward(request, response);
+		CommonUtility.forwardToPage("book_list.jsp", message, request, response);
 	}
 
 	public void newBook() throws ServletException, IOException {
 		List<Category> categoryList = categoryDAO.listAll();
 		request.setAttribute("categoryList", categoryList);
-		request.getRequestDispatcher("book_form.jsp").forward(request, response);
+		CommonUtility.forwardToPage("book_form.jsp", request, response);
 	}
 
 	public void createBook() throws IOException, ServletException {
@@ -64,8 +62,7 @@ public class BookServices {
 			listBook(message);
 		} else {
 			message = "Book [" + title + "] alread exists.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 		}
 
 	}
@@ -77,13 +74,12 @@ public class BookServices {
 
 		if (book == null) {
 			message = "Book with id [" + bookId + "] not found.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 		} else {
 			List<Category> categoryList = categoryDAO.listAll();
 			request.setAttribute("book", book);
 			request.setAttribute("categoryList", categoryList);
-			request.getRequestDispatcher("book_form.jsp").forward(request, response);
+			CommonUtility.forwardToPage("book_form.jsp", request, response);
 		}
 	}
 
@@ -106,9 +102,8 @@ public class BookServices {
 		Book bookExist = bookDAO.findByTitle(title);
 
 		if (bookExist != null && bookExist.getBookId() != bookId) {
-			message = "Book [" + title + "] already exists.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			message = "Cannot update book as Book [" + title + "] already exists.";
+			CommonUtility.showMessageBackend(message, request, response);
 		} else {
 
 			book = bookDAO.update(book);
@@ -171,8 +166,7 @@ public class BookServices {
 
 		if (book == null) {
 			message = "Book with id [" + bookId + "] not found.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 		} else {
 			message = "Book with id [" + bookId + "] deleted successfully.";
 			request.setAttribute("message", message);
@@ -188,13 +182,13 @@ public class BookServices {
 
 		request.setAttribute("category", category);
 		request.setAttribute("bookList", bookList);
-		request.getRequestDispatcher("frontend/books_list_by_category.jsp").forward(request, response);
+		CommonUtility.forwardToPage("frontend/books_list_by_category.jsp", request, response);
 	}
 
 	public void listNewBooks() throws ServletException, IOException {
 		List<Book> bookList = bookDAO.listNewBooks();
 		request.setAttribute("newBookList", bookList);
-		request.getRequestDispatcher("frontend/index.jsp").forward(request, response);
+		CommonUtility.forwardToPage("frontend/index.jsp", request, response);
 	}
 
 	public void viewBook() throws ServletException, IOException {
@@ -203,11 +197,10 @@ public class BookServices {
 
 		if (book == null) {
 			String message = "Sorry, the book with ID [" + bookId + "] is not available.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("frontend/message.jsp").forward(request, response);
+			CommonUtility.showMessageFrontend(message, request, response);
 		} else {
 			request.setAttribute("book", book);
-			request.getRequestDispatcher("frontend/book_view.jsp").forward(request, response);
+			CommonUtility.forwardToPage("frontend/book_view.jsp", request, response);
 		}
 	}
 
@@ -215,7 +208,7 @@ public class BookServices {
 		String searchText = request.getParameter("search").toLowerCase();
 		List<Book> bookList = bookDAO.searchBooks(searchText);
 		request.setAttribute("bookList", bookList);
-		request.getRequestDispatcher("frontend/book_search.jsp").forward(request, response);
+		CommonUtility.forwardToPage("frontend/book_search.jsp", request, response);
 	}
 
 }

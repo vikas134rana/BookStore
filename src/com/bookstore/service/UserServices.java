@@ -32,10 +32,7 @@ public class UserServices {
 		List<Users> listUser = usersDAO.listAll();
 		request.setAttribute("listUser", listUser);
 
-		if (message != null)
-			request.setAttribute("message", message);
-
-		request.getRequestDispatcher("user_list.jsp").forward(request, response);
+		CommonUtility.forwardToPage("user_list.jsp", message, request, response);
 	}
 
 	public void createUser() throws ServletException, IOException {
@@ -49,8 +46,7 @@ public class UserServices {
 		if (userExist != null) {
 
 			String message = "Error: Can't Create User. User with email (" + email + ") already exist.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 
 		} else {
 			Users user = new Users(email, userName, enccryptedPassword);
@@ -66,12 +62,11 @@ public class UserServices {
 		if (user == null) {
 
 			String message = "Error: Could not find user with ID [" + userId + "]";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 		}
 
 		request.setAttribute("user", user);
-		request.getRequestDispatcher("user_form.jsp").forward(request, response);
+		CommonUtility.forwardToPage("user_form.jsp", request, response);
 	}
 
 	public void updateUser() throws ServletException, IOException {
@@ -81,24 +76,19 @@ public class UserServices {
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		System.out.println("######## Update User ");
-		System.out.println(userId + "\t" + userName + "\t" + email + "\t" + password);
-
 		Users userByEmail = usersDAO.findByEmail(email);
 		Users userById = usersDAO.get(userId);
 
 		if (userById == null) {
 
 			String message = "Error: Could not find user with ID [" + userId + "]";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 		}
 
 		if (userByEmail != null && userById.getUserId() != userByEmail.getUserId()) {
 
 			String message = "Error: Can't Update User. User with email (" + email + ") already exist.";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("message.jsp").forward(request, response);
+			CommonUtility.showMessageBackend(message, request, response);
 
 		} else {
 
@@ -151,15 +141,14 @@ public class UserServices {
 			request.getRequestDispatcher("/admin/").forward(request, response);
 		} else {
 			String message = "Login Failed";
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			CommonUtility.forwardToPage("login.jsp", message, request, response);
 		}
 	}
 
 	public void logoutUser() throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("user_email");
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		CommonUtility.forwardToPage("login.jsp", request, response);
 	}
 
 }

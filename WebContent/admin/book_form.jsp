@@ -8,12 +8,18 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Book Management</title>
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/jquery-ui.css">
+<link rel="stylesheet" href="../css/richtext.min.css">
 
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/jquery.richtext.min.js"></script>
 
 </head>
 <body>
@@ -33,7 +39,8 @@
 			<form id="book_form" method="post" action="update_book"
 				enctype="multipart/form-data">
 				<input type="hidden" id="bookId" name="bookId"
-					value="${book.bookId}"></td>
+					value="${book.bookId}">
+				</td>
 		</c:if>
 
 		<table>
@@ -102,6 +109,8 @@
 <script>
 	$().ready(function() {
 
+		$('#description').richText();
+		
 		$("#publishDate").datepicker({
 			dateFormat : 'yy-mm-dd'
 		});

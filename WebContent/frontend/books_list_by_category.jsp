@@ -20,13 +20,13 @@
 		<div class='page_heading'>${category.name}</div>
 
 		<c:forEach var="book" items="${bookList}" varStatus="status">
-			<div style="display: inline-block; border: 1px solid gray; border-radius: 10px; padding: 15px; margin-right: 20px;">
+			<div class="book_list_container">
 				<div>
-					<a href="view_book?id=${book.bookId}"><img alt=""
-						src="data:image/png;base64,${book.imageBase64}"
-						style="width: 150px; height: 200px"></a>
+					<a href="view_book?id=${book.bookId}"><img
+						class="book_list_img" alt=""
+						src="data:image/png;base64,${book.imageBase64}"></a>
 				</div>
-				<div style="font-size: 18px;">
+				<div class="book_list_title">
 					<a href="view_book?id=${book.bookId}"><b>${book.title}</b></a>
 				</div>
 				<div>

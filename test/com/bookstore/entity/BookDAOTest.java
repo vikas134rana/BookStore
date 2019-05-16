@@ -158,6 +158,13 @@ public class BookDAOTest {
 		assertEquals(bookList.size(), 2);
 	}
 
+	@Test
+	public void countBookByCategoryTest() {
+		int categoryId = 1;
+		long bookCount = bookDAO.countBookByCategory(categoryId);
+		assert (bookCount > 2);
+	}
+
 	@AfterClass
 	public static void tearDownClass() {
 		bookDAO.close();

@@ -26,7 +26,9 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "book", catalog = "bookstore")
-@NamedQueries({ @NamedQuery(name = "Book.findAll", query = "Select b from Book b"), @NamedQuery(name = "Book.countAll", query = "Select count(*) from Book b"),
+@NamedQueries({ @NamedQuery(name = "Book.findAll", query = "Select b from Book b"), 
+		@NamedQuery(name = "Book.countAll", query = "Select count(*) from Book b"),
+		@NamedQuery(name = "Book.countByCategory", query = "Select count(*) from Book b where category_id = :category_id"),
 		@NamedQuery(name = "Book.findByTitle", query = "Select b from Book b where title = :title"),
 		@NamedQuery(name = "Book.findByCategory", query = "Select b from Book b where category_id = :category_id"),
 		@NamedQuery(name = "Book.listNewBooks", query = "Select b from Book b order by publish_date desc"),
