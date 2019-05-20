@@ -140,15 +140,6 @@ public class BookServices {
 			is.read(image);
 		}
 
-		System.out.println("Title: " + title);
-		System.out.println("Author: " + author);
-		System.out.println("description: " + description);
-		System.out.println("isbn: " + isbn);
-		System.out.println("price: " + price);
-		System.out.println("categoryId: " + categoryId);
-		System.out.println("publishDate: " + publishDate);
-		System.out.println("image: " + image);
-
 		book.setCategory(category);
 		book.setTitle(title);
 		book.setAuthor(author);

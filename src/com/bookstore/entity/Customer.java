@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +23,10 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "customer", catalog = "bookstore", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@NamedQueries({ @NamedQuery(name = "Customer.findAll", query = "Select c from Customer c"),
+		@NamedQuery(name = "Customer.countAll", query = "Select count(*) from Customer c"),
+		@NamedQuery(name = "Customer.findByEmail", query = "Select c from Customer c where email = :email"),
+		@NamedQuery(name = "Customer.login", query = "Select c from Customer c where email = :email and password = :password") })
 public class Customer implements java.io.Serializable {
 
 	private Integer customerId;
@@ -177,6 +183,22 @@ public class Customer implements java.io.Serializable {
 
 	public void setReviews(Set<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	@Override
+	public String toString() {
+		//@formatter:off
+		return "CUSTOMER : \n"+
+				"customerId :" +customerId+"\n"+
+				"email :" +email+"\n"+
+				"fullName :" +fullName+"\n"+
+				"address :" +address+"\n"+
+				"city :" +city+"\n"+
+				"country :" +country+"\n"+
+				"password :" +password+"\n"+
+				"phone :" +phone+"\n"+
+				"zipcode :" +zipcode;
+		//@formatter:on
 	}
 
 }
