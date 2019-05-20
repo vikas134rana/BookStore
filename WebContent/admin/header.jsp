@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img src="../images/customer.png"><br>Customers</a>
+			<a href="list_customer"><img src="../images/customer.png"><br>Customers</a>
 		</div>
 
 		<div class="menu_item">

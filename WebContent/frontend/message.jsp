@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Error</title>
+<title>Info</title>
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>

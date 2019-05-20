@@ -4,16 +4,31 @@
 
 <div align="center">
 
-	<a href="${pageContext.request.contextPath}"><img src="images/BookStoreLogo.png" width="350" height="96" /></a>
+	<a href="${pageContext.request.contextPath}"><img
+		src="images/BookStoreLogo.png" width="350" height="96" /></a>
 
 	<div>
 		<br>
-		<form action="search_book">
-			<input type="text" width="50px" id="search" name="search"> <input
-				type="submit" value="Search">
-		</form>
-		&nbsp;&nbsp;&nbsp; <a href="#">SigIn</a> | <a href="#">Register</a> |
+		<div style="display: inline-block;">
+			<form action="search_book">
+				<input type="text" width="50px" id="search" name="search"> <input
+					type="submit" value="Search">
+			</form>
+		</div>
+		&nbsp;&nbsp;&nbsp;
+
+		<div style="display: inline-block;">
+			<c:if test="${customer==null}">
+				<a href="login">Login</a> | <a href="register">Register</a> |
 		<a href="#">Cart</a>
+			</c:if>
+			<c:if test="${customer!=null}">
+				<a href="view_profile">Welcome, ${customer.fullName}</a> | <a
+					href="logout">Logout</a> |
+		<a href="#">Orders</a>
+			</c:if>
+
+		</div>
 	</div>
 	<br>
 
