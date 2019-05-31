@@ -18,7 +18,7 @@ import org.junit.Test;
 import com.bookstore.dao.HashGenerator;
 import com.bookstore.dao.UserDAO;
 
-public class UsersDAOTest {
+public class UsersDaoTest {
 
 	private static UserDAO usersDAO;
 

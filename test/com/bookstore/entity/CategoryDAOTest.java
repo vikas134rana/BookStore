@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.bookstore.dao.CategoryDAO;
 
-public class CategoryDAOTest {
+public class CategoryDaoTest {
 
 	public static CategoryDAO categoryDAO;
 

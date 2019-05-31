@@ -43,7 +43,7 @@
 				</td>
 		</c:if>
 
-		<table>
+		<table class="create">
 			<tr>
 				<td>Title:</td>
 				<td><input type="text" id="title" name="title"

@@ -1,6 +1,6 @@
 <div align="center">
 
-	<a href="${pageContext.request.contextPath}/admin/"><img src="../images/BookStoreLogo.png" width="350" height="96" /></a>
+	<a href="${pageContext.request.contextPath}/admin/"><img src="../images/BookStoreAdminLogo.png" width="350" height="96" /></a>
 
 	<p>
 		Welcome, ${user_email} | <a href="logout">Logout</a>
@@ -25,7 +25,7 @@
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img src="../images/review.png"><br>Reviews</a>
+			<a href="list_review"><img src="../images/review.png"><br>Reviews</a>
 		</div>
 
 		<div class="menu_item">

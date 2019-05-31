@@ -141,10 +141,18 @@ public class CustomerServices {
 			message = "Customer with id [" + customerId + "] not found.";
 			CommonUtility.showMessageBackend(message, request, response);
 		} else {
-			message = "Customer with id [" + customerId + "] deleted successfully.";
-			request.setAttribute("message", message);
-			customerDAO.delete(customerId);
-			listAll(message);
+
+			if (!customer.getReviews().isEmpty()) {
+				message = "Could not delete customer with ID [" + customerId + "] because he/she posted reviews for books";
+				CommonUtility.showMessageBackend(message, request, response);
+			} else {
+
+				message = "Customer with id [" + customerId + "] deleted successfully.";
+				request.setAttribute("message", message);
+				customerDAO.delete(customerId);
+				listAll(message);
+
+			}
 		}
 
 	}
@@ -182,7 +190,14 @@ public class CustomerServices {
 		if (loginStatus) {
 			Customer customer = customerDAO.findByEmail(email);
 			request.getSession().setAttribute("customer", customer);
-			showProfile();
+
+			if (request.getSession().getAttribute("lastRequestedUrl") != null) {
+				String requestedUrl = (String) request.getSession().getAttribute("lastRequestedUrl");
+				request.getSession().removeAttribute("lastRequestedUrl");
+				response.sendRedirect(requestedUrl);
+			} else {
+				showProfile();
+			}
 		} else {
 			String message = "Please provide valid credentials";
 			CommonUtility.forwardToPage("frontend/login.jsp", message, request, response);

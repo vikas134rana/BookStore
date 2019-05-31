@@ -29,7 +29,7 @@
 		</c:if>
 
 		<input type="hidden" id="userId" name="userId" value="${user.userId}">
-		<table>
+		<table class="create">
 			<tr>
 				<td>UserName:</td>
 				<td><input type="text" id="username" name="username"

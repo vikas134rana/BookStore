@@ -33,6 +33,15 @@
 					<div>
 						<b>$${book.price}</b>
 					</div>
+					<div>
+						<span id="star_rating_new_book${book.bookId}"
+							style="width: 50px;"> <jsp:include page="star_rating.jsp">
+								<jsp:param name="ratingContainerId"
+									value="star_rating_new_book${book.bookId}" />
+								<jsp:param name="rating" value="${book.ratingAvg}" />
+							</jsp:include>
+						</span>
+					</div>
 				</div>
 			</c:forEach>
 		</div>

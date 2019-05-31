@@ -13,11 +13,11 @@ import org.junit.Test;
 import com.bookstore.dao.CustomerDAO;
 import com.bookstore.dao.HashGenerator;
 
-public class CustomerDAOTest {
+public class CustomerDaoTest {
 
 	private CustomerDAO customerDao;
 
-	public CustomerDAOTest() {
+	public CustomerDaoTest() {
 		customerDao = new CustomerDAO();
 	}
 

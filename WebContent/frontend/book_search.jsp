@@ -48,7 +48,14 @@
 					</div>
 
 					<div class="book_search_rating">
-						<b>Rating *****</b>
+						<b>Rating</b>
+						<div id="star_rating_book${book.bookId}">
+							<jsp:include page="star_rating.jsp">
+								<jsp:param name="ratingContainerId"
+									value="star_rating_book${book.bookId}" />
+								<jsp:param name="rating" value="${book.ratingAvg}" />
+							</jsp:include>
+						</div>
 					</div>
 				</div>
 				<div class="book_search_buy_container">

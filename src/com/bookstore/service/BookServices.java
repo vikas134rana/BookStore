@@ -159,10 +159,17 @@ public class BookServices {
 			message = "Book with id [" + bookId + "] not found.";
 			CommonUtility.showMessageBackend(message, request, response);
 		} else {
-			message = "Book with id [" + bookId + "] deleted successfully.";
-			request.setAttribute("message", message);
-			bookDAO.delete(bookId);
-			listBook();
+			message = null;
+			if (!book.getReviews().isEmpty()) {
+				message = "Could not delete the book with ID " + bookId + " because it has reviews";
+				CommonUtility.showMessageBackend(message, request, response);
+			} else {
+
+				message = "Book with id [" + bookId + "] deleted successfully.";
+				request.setAttribute("message", message);
+				bookDAO.delete(bookId);
+				listBook();
+			}
 		}
 	}
 

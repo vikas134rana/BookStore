@@ -20,28 +20,30 @@
 
 		<c:if test="${category==null}">
 			<div class='page_heading'>Create Category</div>
-			<form id="category_form" method="post" action="create_category" onsubmit="return validateFormField();">
+			<form id="category_form" method="post" action="create_category"
+				onsubmit="return validateFormField();">
 		</c:if>
 
 		<c:if test="${category!=null}">
 			<div class='page_heading'>Edit Category</div>
-			<form id="category_form" method="post" action="update_category" onsubmit="return validateFormField();">
+			<form id="category_form" method="post" action="update_category"
+				onsubmit="return validateFormField();">
 		</c:if>
 
-			<input type="hidden" id="categoryId" name="categoryId"
-				value="${category.categoryId}">
-			<table>
-				<tr>
-					<td>CategoryName:</td>
-					<td><input type="text" id="categoryName" name="categoryName"
-						value="${category.name}"></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center"><input id="submit" type="button"
-						value="Cancel" onclick="javascript:history.go(-1);"> <input
-						type="submit" value="Submit"></td>
-				</tr>
-			</table>
+		<input type="hidden" id="categoryId" name="categoryId"
+			value="${category.categoryId}">
+		<table class="create">
+			<tr>
+				<td>CategoryName:</td>
+				<td><input type="text" id="categoryName" name="categoryName"
+					value="${category.name}"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input id="submit" type="button"
+					value="Cancel" onclick="javascript:history.go(-1);"> <input
+					type="submit" value="Submit"></td>
+			</tr>
+		</table>
 
 		</form>
 
@@ -51,19 +53,17 @@
 
 </body>
 <script>
-
-	$().ready(function(){
+	$().ready(function() {
 		$("#category_form").validate({
-			
-			rules:{
-				categoryName: "required"
+
+			rules : {
+				categoryName : "required"
 			},
-			
-			messages:{
-				categoryName: "Please enter Category Name"
+
+			messages : {
+				categoryName : "Please enter Category Name"
 			}
-				
-			
+
 		});
 	});
 

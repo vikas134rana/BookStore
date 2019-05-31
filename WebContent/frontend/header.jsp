@@ -20,7 +20,7 @@
 		<div style="display: inline-block;">
 			<c:if test="${customer==null}">
 				<a href="login">Login</a> | <a href="register">Register</a> |
-		<a href="#">Cart</a>
+		<a href="view_cart">Cart</a>
 			</c:if>
 			<c:if test="${customer!=null}">
 				<a href="view_profile">Welcome, ${customer.fullName}</a> | <a
@@ -34,7 +34,7 @@
 
 </div>
 
-<div align="center">
+<div align="center" style="margin-bottom: 20px;">
 	<c:if test="${categoryList!=null}">
 		<div id="category_menu">
 			<c:forEach var="cat" items="${categoryList}" varStatus="status">

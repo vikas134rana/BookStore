@@ -176,7 +176,7 @@ public class Customer implements java.io.Serializable {
 		this.bookOrders = bookOrders;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
 	public Set<Review> getReviews() {
 		return this.reviews;
 	}

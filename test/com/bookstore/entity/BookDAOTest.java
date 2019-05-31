@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import com.bookstore.dao.BookDAO;
 
-public class BookDAOTest {
+public class BookDaoTest {
 
 	private static BookDAO bookDAO;
 

@@ -10,6 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>${category.name}Book</title>
 <link rel="stylesheet" href="css/style.css">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 </head>
 <body>
 
@@ -34,6 +35,13 @@
 				</div>
 				<div>
 					<b>$${book.price}</b>
+				</div>
+				<div id="star_rating_book${book.bookId}">
+					<jsp:include page="star_rating.jsp">
+						<jsp:param name="ratingContainerId"
+							value="star_rating_book${book.bookId}" />
+						<jsp:param name="rating" value="${book.ratingAvg}" />
+					</jsp:include>
 				</div>
 			</div>
 		</c:forEach>

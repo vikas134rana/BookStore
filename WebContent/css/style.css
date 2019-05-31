@@ -57,6 +57,15 @@ table.list  th {
 	color: white;
 }
 
+table.create tr td:nth-child(1) {
+	font-weight: bold;
+}
+
+table.create td {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .category_menu_item {
 	font-size: 18px;
 	font-style: bold;
