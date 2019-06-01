@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.service.ShoppingCart;
+import com.bookstore.service.CartServices;
 
 @WebServlet("/clear_cart")
 public class ClearCartServlet extends HttpServlet {
@@ -18,7 +18,7 @@ public class ClearCartServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ShoppingCart shoppingCart = new ShoppingCart(request, response);
+		CartServices shoppingCart = new CartServices(request, response);
 		shoppingCart.clearCart();
 	}
 

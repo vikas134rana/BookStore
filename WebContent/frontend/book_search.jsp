@@ -63,7 +63,8 @@
 						<b>$${book.price}</b>
 					</div>
 
-					<a class="book_search_buy">Buy now</a> <a class="book_search_cart">Add
+					<a class="book_search_buy">Buy now</a> <a
+						href="add_cart?id=${book.bookId}" class="book_search_cart">Add
 						to cart</a>
 				</div>
 

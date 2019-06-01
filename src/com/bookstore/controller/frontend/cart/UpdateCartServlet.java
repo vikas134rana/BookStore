@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.service.CartServices;
 
-@WebServlet("/view_cart")
-public class ViewCartServlet extends HttpServlet {
+@WebServlet("/update_cart")
+public class UpdateCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public ViewCartServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateCartServlet() {
+		super();
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartServices cartServices = new CartServices(request, response);
-		cartServices.viewCart();
+		cartServices.updateCart();
 	}
 
 }

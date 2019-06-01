@@ -212,4 +212,20 @@ public class Book implements java.io.Serializable {
 		return sum / reviews.size();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (obj instanceof Book) {
+			return ((Book) obj).bookId == this.bookId ? true : false;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return 31 * bookId;
+	}
 }

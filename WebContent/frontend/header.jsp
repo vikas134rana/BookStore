@@ -25,7 +25,7 @@
 			<c:if test="${customer!=null}">
 				<a href="view_profile">Welcome, ${customer.fullName}</a> | <a
 					href="logout">Logout</a> |
-		<a href="#">Orders</a>
+		<a href="#">Orders</a> | <a href="view_cart">Cart</a>
 			</c:if>
 
 		</div>
