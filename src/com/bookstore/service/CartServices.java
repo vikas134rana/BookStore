@@ -43,7 +43,7 @@ public class CartServices {
 			cart.addItem(book);
 		}
 
-		CommonUtility.forwardToPage("view_book?id=" + bookId, request, response);
+		viewCart();
 
 	}
 

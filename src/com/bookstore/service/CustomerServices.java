@@ -145,6 +145,9 @@ public class CustomerServices {
 			if (!customer.getReviews().isEmpty()) {
 				message = "Could not delete customer with ID [" + customerId + "] because he/she posted reviews for books";
 				CommonUtility.showMessageBackend(message, request, response);
+			} else if(!customer.getBookOrders().isEmpty()) {
+				message = "Could not delete customer with ID [" + customerId + "] because he/she has placed orders";
+				CommonUtility.showMessageBackend(message, request, response);
 			} else {
 
 				message = "Customer with id [" + customerId + "] deleted successfully.";

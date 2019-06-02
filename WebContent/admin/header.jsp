@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="menu_item">
-			<a href="#"><img src="../images/order.png"><br>Orders</a>
+			<a href="list_order"><img src="../images/order.png"><br>Orders</a>
 		</div>
 
 	</div>

@@ -66,8 +66,8 @@
 								</div></td>
 							<td><input size="5" id="quantity${status.index+1}"
 								name="quantity${status.index+1}" value="${entry.value}"></td>
-							<td>${entry.key.price}</td>
-							<td>${subTotalPrice}</td>
+							<td>$${entry.key.price}</td>
+							<td>$${subTotalPrice}</td>
 							<td><a href="remove_cart?id=${entry.key.bookId}">Remove</a></td>
 						</tr>
 					</c:forEach>
@@ -82,9 +82,8 @@
 					</tr>
 				</table>
 
-				<br>
-				<input type="submit" value="Update">
-
+				<br> <input type="submit" value="Update"> <a
+					href="checkout">Checkout</a>
 			</form>
 		</c:if>
 

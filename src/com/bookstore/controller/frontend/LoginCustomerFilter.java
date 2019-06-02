@@ -20,7 +20,7 @@ import com.bookstore.service.CommonUtility;
 @WebFilter("/*")
 public class LoginCustomerFilter implements Filter {
 
-	private List<String> loginRequiredUrls = Arrays.asList("/view_profile", "/edit_profile", "/update_profile","/write_review");
+	private List<String> loginRequiredUrls = Arrays.asList("/view_profile", "/edit_profile", "/update_profile", "/write_review", "/checkout","/place_order");
 
 	public LoginCustomerFilter() {
 	}
@@ -40,13 +40,13 @@ public class LoginCustomerFilter implements Filter {
 
 		if (!loggedIn && !adminRequest && isLoginRequired(currentUrl)) {
 			String requestedUrl = httpRequest.getRequestURI();
-			
-			if(httpRequest.getQueryString() != null) {
-				requestedUrl = requestedUrl +"?"+httpRequest.getQueryString();
+
+			if (httpRequest.getQueryString() != null) {
+				requestedUrl = requestedUrl + "?" + httpRequest.getQueryString();
 			}
-			
+
 			httpRequest.getSession().setAttribute("lastRequestedUrl", requestedUrl);
-			
+
 			CommonUtility.forwardToPage("login", httpRequest, httpResponse);
 		} else {
 			chain.doFilter(request, response);

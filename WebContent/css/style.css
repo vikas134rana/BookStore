@@ -66,6 +66,16 @@ table.create td {
 	padding-right: 10px;
 }
 
+table.view tr td:nth-child(1) {
+	font-weight: bold;
+}
+
+table.view td, table.view th {
+	padding: 5px 30px 5px 12px; border : 1px solid #ddd;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
 .category_menu_item {
 	font-size: 18px;
 	font-style: bold;
@@ -84,7 +94,7 @@ form table td {
 	padding: 6px;
 }
 
-form input {
+form input, form textarea  {
 	border: #3EADA6 1px solid;
 	height: 20px;
 	border-radius: 5px;
@@ -281,6 +291,24 @@ form input[type='button'], form input[type='submit'] {
 	padding: 5px 10px 5px 10px;
 	font-family: sans-serif;
 	font-size: 16px;
+}
+
+.place_order_button {
+	font-size: 20px;
+	padding: 8px;
+	color: white;
+	background: #007bff;
+	border-radius: 5px;
+	margin: 10px;
+}
+
+.continue_shopping {
+	font-size: 20px;
+	padding: 8px;
+	color: white;
+	background: #3EADA6;
+	border-radius: 5px;
+	margin: 10px;
 }
 
 body {
