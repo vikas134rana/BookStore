@@ -20,7 +20,7 @@ import com.bookstore.service.CommonUtility;
 @WebFilter("/*")
 public class LoginCustomerFilter implements Filter {
 
-	private List<String> loginRequiredUrls = Arrays.asList("/view_profile", "/edit_profile", "/update_profile", "/write_review", "/checkout","/place_order");
+	private List<String> loginRequiredUrls = Arrays.asList("/view_profile", "/edit_profile", "/update_profile", "/write_review", "/checkout","/place_order","/my_orders","/my_order");
 
 	public LoginCustomerFilter() {
 	}

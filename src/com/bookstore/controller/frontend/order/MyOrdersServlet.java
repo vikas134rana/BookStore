@@ -1,29 +1,25 @@
-package com.bookstore.controller.frontend;
+package com.bookstore.controller.frontend.order;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.service.BookServices;
+import com.bookstore.service.OrderServices;
 
-/**
- * Servlet implementation class HomeServlet
- */
-@WebServlet("")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/my_orders")
+public class MyOrdersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public HomeServlet() {
-		super();
-	}
+       
+    public MyOrdersServlet() {
+        super();
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BookServices bookServices = new BookServices(request, response);
-		bookServices.listBooksInHomePage();
+		OrderServices orderServices = new OrderServices(request, response);
+		orderServices.listByCustomer();
 	}
 
 }

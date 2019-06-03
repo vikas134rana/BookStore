@@ -1,9 +1,12 @@
 package com.bookstore.entity;
 // Generated May 22, 2018 5:46:15 AM by Hibernate Tools 5.2.10.Final
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,17 +30,20 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "book_order", catalog = "bookstore")
-@NamedQueries({
-	@NamedQuery(name = "BookOrder.findAll", query = "SELECT bo FROM BookOrder bo ORDER BY bo.orderDate DESC"),
-	@NamedQuery(name = "BookOrder.countAll", query = "SELECT COUNT(*) FROM BookOrder"),
-	@NamedQuery(name = "BookOrder.findByCustomer", 
-		query = "SELECT bo FROM BookOrder bo WHERE bo.customer.customerId =:customerId ORDER BY bo.orderDate DESC"),
-	@NamedQuery(name = "BookOrder.findByIdAndCustomer",
-			query = "SELECT bo FROM BookOrder bo WHERE bo.orderId =:orderId AND bo.customer.customerId =:customerId"),
-	@NamedQuery(name = "BookOrder.countByCustomer",
-			query = "SELECT COUNT(bo.orderId) FROM BookOrder bo WHERE bo.customer.customerId =:customerId")
-})
+@NamedQueries({ @NamedQuery(name = "BookOrder.findAll", query = "SELECT bo FROM BookOrder bo ORDER BY bo.orderDate DESC"),
+		@NamedQuery(name = "BookOrder.countAll", query = "SELECT COUNT(*) FROM BookOrder"),
+		@NamedQuery(name = "BookOrder.findByCustomer", query = "SELECT bo FROM BookOrder bo WHERE customer_id =:customer_id ORDER BY bo.orderDate DESC"),
+		@NamedQuery(name = "BookOrder.findByIdAndCustomer", query = "SELECT bo FROM BookOrder bo WHERE order_id =:order_id AND customer_id =:customer_id"),
+		@NamedQuery(name = "BookOrder.countByCustomer", query = "SELECT COUNT(bo.orderId) FROM BookOrder bo WHERE bo.customer.customerId =:customerId") })
 public class BookOrder implements java.io.Serializable {
+
+	enum Payment {
+		CASH_ON_DELIVERY, DEBIT_CARD, CREDIT_CARD, NET_BANKING;
+	}
+
+	enum Status {
+		CONFIRMED, DISPATCHED, SHIPPING, DELIVERED;
+	}
 
 	private Integer orderId;
 	private Customer customer;
@@ -53,8 +59,8 @@ public class BookOrder implements java.io.Serializable {
 	public BookOrder() {
 	}
 
-	public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipientName,
-			String recipientPhone, String paymentMethod, float total, String status) {
+	public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipientName, String recipientPhone, String paymentMethod, float total,
+			String status) {
 		this.customer = customer;
 		this.orderDate = orderDate;
 		this.shippingAddress = shippingAddress;
@@ -65,8 +71,8 @@ public class BookOrder implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipientName,
-			String recipientPhone, String paymentMethod, float total, String status, Set<OrderDetail> orderDetails) {
+	public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipientName, String recipientPhone, String paymentMethod, float total,
+			String status, Set<OrderDetail> orderDetails) {
 		this.customer = customer;
 		this.orderDate = orderDate;
 		this.shippingAddress = shippingAddress;
@@ -176,14 +182,24 @@ public class BookOrder implements java.io.Serializable {
 	@Transient
 	public int getTotalQuantity() {
 		int total = 0;
-		
+
 		for (OrderDetail orderDetail : orderDetails) {
 			total += orderDetail.getQuantity();
 		}
-		
+
 		return total;
 	}
-	
+
+	@Transient
+	public static List<String> getPaymentValues() {
+		return Arrays.asList(Payment.values()).stream().map(p -> p.toString()).collect(Collectors.toList());
+	}
+
+	@Transient
+	public static List<String> getStatusValues() {
+		return Arrays.asList(Status.values()).stream().map(p -> p.toString()).collect(Collectors.toList());
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -209,5 +225,4 @@ public class BookOrder implements java.io.Serializable {
 		return true;
 	}
 
-	
 }

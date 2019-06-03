@@ -9,7 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Order Detail</title>
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -97,7 +97,7 @@
 
 			<tr>
 				<td colspan="3"></td>
-				<td><b>TOTAL</b></td>
+				<td ><b>TOTAL</b></td>
 				<td>${order.getTotalQuantity()}</td>
 				<td>$${order.total}</td>
 			</tr>

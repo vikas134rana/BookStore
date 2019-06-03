@@ -21,7 +21,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "review", catalog = "bookstore")
-@NamedQueries({ @NamedQuery(name = "Review.listAll", query = "Select r from Review r"),
+@NamedQueries({ @NamedQuery(name = "Review.listAll", query = "Select r.book from Review r group by r.book.bookId where rating>4.0 order by sum()"),
+	@NamedQuery(name = "Review.mostFavouredBooks", query = "select r.book, Count(r.book) as CountReview, AVG(r.rating) as AvgRating from review r group by r.book having AVG(rating) >= 4 order by AvgRating desc,CountReview desc;"),
 		@NamedQuery(name = "Review.countAll", query = "Select count(*) from Review r"),
 		@NamedQuery(name = "Review.findByCustomerAndBook", query = "Select r from Review r where r.customer.customerId = :customerId AND r.book.bookId = :bookId") })
 public class Review implements java.io.Serializable {

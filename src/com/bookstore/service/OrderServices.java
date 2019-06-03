@@ -103,16 +103,41 @@ public class OrderServices {
 		order.setPaymentMethod(request.getParameter("payment_method"));
 		order.setRecipientName(request.getParameter("recipient_name"));
 		order.setRecipientPhone(request.getParameter("recipient_phone"));
-		order.setShippingAddress(request.getParameter("address"));
+		order.setShippingAddress(request.getParameter("address")+", "+request.getParameter("city")+", "+request.getParameter("country"));
 		order.setStatus("Approved");
 		order.setTotal(cart.getTotalAmount());
-		
+
 		orderDAO.create(order);
-		
+
 		cart.clear();
 
 		CommonUtility.showMessageFrontend("Order Placed Successfully.", request, response);
 
 	}
+
+	public void listByCustomer() throws ServletException, IOException {
+		Customer customer = (Customer) request.getSession().getAttribute("customer");
+		int customerId = customer.getCustomerId();
+		List<BookOrder> orderList = orderDAO.listByCustomer(customerId);
+		request.setAttribute("orderList", orderList);
+		CommonUtility.forwardToPage("frontend/order_list.jsp", request, response);
+	}
+
+	public void viewDetailOrderByCustomer() throws ServletException, IOException {
+		int orderId = Integer.parseInt(request.getParameter("id"));
+		Customer customer = (Customer) request.getSession().getAttribute("customer");
+		int customerId = customer.getCustomerId();
+
+		BookOrder order = orderDAO.listByIdAndCustomer(orderId, customerId);
+
+		if (order == null) {
+			CommonUtility.showMessageFrontend("Sorry, either the order is not valid or you are not authorized to view this order.", request, response);
+		} else {
+			request.setAttribute("order", order);
+			CommonUtility.forwardToPage("frontend/order_detail.jsp", request, response);
+		}
+	}
+
+	
 
 }

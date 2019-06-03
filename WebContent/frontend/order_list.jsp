@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Order Management</title>
-<link rel="stylesheet" href="../css/style.css">
+<title>Order History</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 
 	<div align="center">
 
-		<div class='page_heading'>Order Management</div>
+		<div class='page_heading'>Order History</div>
 
 
 		<c:if test="${requestScope.message!=null}">
@@ -50,9 +50,7 @@
 					<td>${order.paymentMethod}</td>
 					<td>${order.status}</td>
 					<td>${order.orderDate}</td>
-					<td><a href="detail_order?id=${order.orderId}">Detail</a>&nbsp;&nbsp;&nbsp;<a
-						href="edit_category?id=${order.orderId}">Edit</a>&nbsp;&nbsp;&nbsp;<a
-						href="#" onclick="confirmDelete(${order.orderId})">Delete</a></td>
+					<td><a href="my_order?id=${order.orderId}">Detail</a></td>
 				</tr>
 			</c:forEach>
 
@@ -63,13 +61,5 @@
 	<jsp:directive.include file="footer.jsp" />
 
 </body>
-
-<script type="text/javascript">
-	function confirmDelete(id) {
-		if (confirm("Are you sure you want to delete Order with Id " + id)) {
-			window.location = "delete_order?id="+id;
-		}
-	}
-</script>
 
 </html>

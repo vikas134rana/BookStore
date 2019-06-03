@@ -14,7 +14,9 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
+import com.bookstore.dao.OrderDAO;
 import com.bookstore.entity.Book;
+import com.bookstore.entity.BookOrder;
 import com.bookstore.entity.Category;
 
 public class BookServices {
@@ -23,6 +25,7 @@ public class BookServices {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private CategoryDAO categoryDAO;
+	private OrderDAO orderDAO;
 
 	public BookServices(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
@@ -183,9 +186,15 @@ public class BookServices {
 		CommonUtility.forwardToPage("frontend/books_list_by_category.jsp", request, response);
 	}
 
-	public void listNewBooks() throws ServletException, IOException {
-		List<Book> bookList = bookDAO.listNewBooks();
-		request.setAttribute("newBookList", bookList);
+	public void listBooksInHomePage() throws ServletException, IOException {
+		List<Book> newBookList = bookDAO.listNewBooks();
+		List<Book> bestSellingBookList = bookDAO.listBestSellingBooks();
+		List<Book> mostFavouredBookList = bookDAO.listMostFavouredBooks();
+		
+		request.setAttribute("newBookList", newBookList);
+		request.setAttribute("bestSellingBookList", bestSellingBookList);
+		request.setAttribute("mostFavouredBookList", mostFavouredBookList);
+
 		CommonUtility.forwardToPage("frontend/index.jsp", request, response);
 	}
 
