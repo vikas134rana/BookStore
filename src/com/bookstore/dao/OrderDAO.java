@@ -62,4 +62,8 @@ public class OrderDAO extends JpaDAO<BookOrder> implements GenericDAO<BookOrder>
 		return null;
 	}
 
+	public List<BookOrder> recentSales() {
+		return super.findWithNamedQuery("BookOrder.recentSales", 0, 3);
+	}
+
 }

@@ -21,10 +21,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "review", catalog = "bookstore")
-@NamedQueries({ @NamedQuery(name = "Review.listAll", query = "Select r.book from Review r group by r.book.bookId where rating>4.0 order by sum()"),
-	@NamedQuery(name = "Review.mostFavouredBooks", query = "select r.book, Count(r.book) as CountReview, AVG(r.rating) as AvgRating from review r group by r.book having AVG(rating) >= 4 order by AvgRating desc,CountReview desc;"),
+@NamedQueries({ @NamedQuery(name = "Review.listAll", query = "Select r from Review r"),
+		@NamedQuery(name = "Review.mostFavouredBooks", query = "SELECT r.book FROM Review r "
+				+ "GROUP BY r.book.bookId HAVING AVG(r.rating) >= 4.0 " + "ORDER BY COUNT(r.book.bookId) DESC, AVG(r.rating) DESC"),
 		@NamedQuery(name = "Review.countAll", query = "Select count(*) from Review r"),
-		@NamedQuery(name = "Review.findByCustomerAndBook", query = "Select r from Review r where r.customer.customerId = :customerId AND r.book.bookId = :bookId") })
+		@NamedQuery(name = "Review.findByCustomerAndBook", query = "Select r from Review r where r.customer.customerId = :customerId AND r.book.bookId = :bookId"),
+		@NamedQuery(name = "Review.recentReviews", query = "Select r from Review r order by r.reviewOn"),
+})
 public class Review implements java.io.Serializable {
 
 	private Integer reviewId;

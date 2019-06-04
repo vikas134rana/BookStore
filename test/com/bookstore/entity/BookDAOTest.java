@@ -165,6 +165,34 @@ public class BookDaoTest {
 		assert (bookCount > 2);
 	}
 
+	@Test
+	public void newBooksTest() {
+		List<Book> books = bookDAO.listNewBooks();
+
+		System.out.println("#### " + " New Books " + " ####");
+		for (Book book : books) {
+			System.out.println(book.getBookId() + " " + book.getTitle() + " " + book.getAuthor());
+		}
+	}
+
+	@Test
+	public void bestSellingBooksTest() {
+		List<Book> books = bookDAO.listBestSellingBooks();
+		System.out.println("#### " + " Best Selling Books " + " ####");
+		for (Book book : books) {
+			System.out.println(book.getBookId() + " " + book.getTitle() + " " + book.getAuthor());
+		}
+	}
+
+	@Test
+	public void mostFavouredBooksTest() {
+		List<Book> books = bookDAO.listMostFavouredBooks();
+		System.out.println("#### " + " Most Favoured " + " ####");
+		for (Book book : books) {
+			System.out.println(book.getBookId() + " " + book.getTitle() + " " + book.getAuthor());
+		}
+	}
+
 	@AfterClass
 	public static void tearDownClass() {
 		bookDAO.close();

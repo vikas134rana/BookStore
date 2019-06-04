@@ -41,7 +41,7 @@
 						<jsp:param name="ratingContainerId"
 							value="star_rating_book${book.bookId}" />
 						<jsp:param name="rating" value="${book.ratingAvg}" />
-					</jsp:include>
+					</jsp:include>(${book.reviews.size()})
 				</div>
 			</div>
 		</c:forEach>

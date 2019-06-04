@@ -34,7 +34,10 @@ import javax.persistence.Transient;
 		@NamedQuery(name = "BookOrder.countAll", query = "SELECT COUNT(*) FROM BookOrder"),
 		@NamedQuery(name = "BookOrder.findByCustomer", query = "SELECT bo FROM BookOrder bo WHERE customer_id =:customer_id ORDER BY bo.orderDate DESC"),
 		@NamedQuery(name = "BookOrder.findByIdAndCustomer", query = "SELECT bo FROM BookOrder bo WHERE order_id =:order_id AND customer_id =:customer_id"),
-		@NamedQuery(name = "BookOrder.countByCustomer", query = "SELECT COUNT(bo.orderId) FROM BookOrder bo WHERE bo.customer.customerId =:customerId") })
+		@NamedQuery(name = "BookOrder.countByCustomer", query = "SELECT COUNT(bo.orderId) FROM BookOrder bo WHERE bo.customer.customerId =:customerId"),
+		@NamedQuery(name = "BookOrder.recentSales", query = "SELECT bo FROM BookOrder bo order by bo.orderDate desc")
+})
+		
 public class BookOrder implements java.io.Serializable {
 
 	enum Payment {

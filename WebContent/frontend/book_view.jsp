@@ -51,7 +51,7 @@
 								value="star_rating_book${book.bookId}" />
 							<jsp:param name="rating" value="${book.ratingAvg}" />
 						</jsp:include>
-					</div>
+					</div> 
 				</div>
 
 				<div class="book_detail_button_container">
@@ -79,7 +79,7 @@
 					</h4>
 				</c:if>
 
-				<h3>Reviews</h3>
+				<h3>Reviews (${book.reviews.size()})</h3>
 
 				<c:forEach var="review" items="${book.reviews}">
 
